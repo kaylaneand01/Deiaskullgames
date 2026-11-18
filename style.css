@@ -1,0 +1,770 @@
+/* =====================================================================
+   DÉIA SKULLGAMES · style.css
+   Índice
+   1. Temas (variáveis)   2. Base   3. Layout   4. Cabeçalho
+   5. Hero               6. Componentes (botões, chips, cards)
+   7. Seções             8. Rodapé  9. Animações e acessibilidade
+   10. Desktop
+   ===================================================================== */
+
+
+/* =====================================================================
+   1. TEMAS
+   Cada tema só troca valores de variáveis. O resto do CSS usa as variáveis.
+   Para criar uma direção nova, copie um bloco e mude as cores.
+   ===================================================================== */
+:root {
+  --font-title: 'Press Start 2P', monospace;
+  --font-glitch: 'Rubik Glitch', sans-serif;
+  --font-hand: 'Permanent Marker', cursive;
+  --maxw: 1200px;
+}
+
+/* ---- A · Glitch Noir ---- */
+[data-theme="noir"] {
+  --bg: #08050F;
+  --surface: #150B2B;
+  --text: #F2EEFF;
+  --muted: #B36BFF;
+  --brand: #8800FF;
+  --on-brand: #FFFFFF;
+  --signal: #3FFF00;
+  --on-signal: #08050F;
+  --accent: #B36BFF;
+  --icon: #3FFF00;
+
+  --border: #8800FF;
+  --bw: 2px;
+  --shadow: none;
+  --shadow-btn: none;
+  --btn-border: #3FFF00;
+  --header-bg: rgba(8, 5, 15, 0.92);
+
+  --font-body: 'Rubik', sans-serif;
+  --font-display: var(--font-glitch);
+  --display-size: clamp(2.8rem, 9vw, 6.5rem);
+  --display-lh: 1;
+  --title-color: var(--signal);
+  --title-shadow: 4px 4px 0 var(--brand);
+  --section-color: var(--signal);
+
+  --tilt: 0deg;
+  --avatar-radius: 50%;
+  --banner-display: block;
+}
+
+/* ---- B · Kawaii Arcade ---- */
+[data-theme="kawaii"] {
+  --bg: #F6F0FF;
+  --surface: #FFFFFF;
+  --text: #1A0B2E;
+  --muted: #5B2C95;
+  --brand: #8800FF;
+  --on-brand: #FFFFFF;
+  --signal: #3FFF00;
+  --on-signal: #1A0B2E;
+  --accent: #FF8FC7;
+  --icon: #8800FF;
+
+  --border: #1A0B2E;
+  --bw: 3px;
+  --shadow: 5px 5px 0 #1A0B2E;
+  --shadow-btn: 4px 4px 0 #1A0B2E;
+  --btn-border: #1A0B2E;
+  --header-bg: rgba(246, 240, 255, 0.94);
+
+  --font-body: 'DotGothic16', 'Rubik', sans-serif;
+  --font-display: var(--font-title);
+  --display-size: clamp(1.5rem, 5.2vw, 3.4rem);
+  --display-lh: 1.3;
+  --title-color: #1A0B2E;
+  --title-shadow: 3px 3px 0 #3FFF00, 6px 6px 0 #8800FF;
+  --section-color: #8800FF;
+
+  --tilt: 0deg;
+  --avatar-radius: 0;
+  --banner-display: none;
+}
+
+/* ---- C · Vampy Zine ---- */
+[data-theme="zine"] {
+  --bg: #0E0A12;
+  --surface: #1B1224;
+  --text: #EFE3D3;
+  --muted: #B36BFF;
+  --brand: #8800FF;
+  --on-brand: #FFFFFF;
+  --signal: #3FFF00;
+  --on-signal: #0E0A12;
+  --accent: #A31621;
+  --icon: #3FFF00;
+
+  --border: #8800FF;
+  --bw: 2px;
+  --shadow: 4px 4px 0 #000000;
+  --shadow-btn: none;
+  --btn-border: #3FFF00;
+  --header-bg: rgba(14, 10, 18, 0.94);
+
+  --font-body: 'Rubik', sans-serif;
+  --font-display: var(--font-glitch);
+  --display-size: clamp(2.8rem, 9vw, 6.5rem);
+  --display-lh: 1;
+  --title-color: #EFE3D3;
+  --title-shadow: -4px 0 #3FFF00, 4px 0 #8800FF;
+  --section-color: var(--signal);
+
+  --tilt: -1deg;
+  --avatar-radius: 0;
+  --banner-display: block;
+}
+
+
+/* =====================================================================
+   2. BASE
+   ===================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: 90px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+/* Textura de fundo por tema */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme="noir"] body::before {
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 4px);
+}
+[data-theme="kawaii"] body::before {
+  background-image: radial-gradient(rgba(136, 0, 255, 0.14) 2px, transparent 2px);
+  background-size: 24px 24px;
+}
+[data-theme="zine"] body::before {
+  background-image: radial-gradient(rgba(136, 0, 255, 0.22) 2px, transparent 2px);
+  background-size: 22px 22px;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 3px;
+}
+[data-theme="kawaii"] :focus-visible { outline-color: var(--brand); }
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  background: var(--signal);
+  color: var(--on-signal);
+  padding: 10px 14px;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+[hidden] { display: none !important; }
+
+
+/* =====================================================================
+   3. LAYOUT
+   ===================================================================== */
+.container {
+  width: min(100% - 40px, var(--maxw));
+  margin-inline: auto;
+}
+
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+.section { padding: 72px 0; }
+.section--tight { padding: 24px 0; }
+
+.grid { display: grid; gap: 22px; }
+.grid--games { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.grid--playlists { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid--community { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+
+
+/* =====================================================================
+   4. CABEÇALHO
+   ===================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--header-bg);
+  border-bottom: var(--bw) solid var(--border);
+  backdrop-filter: blur(6px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+  flex-wrap: nowrap;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  color: var(--section-color);
+}
+.logo__icon { width: 28px; height: 28px; color: var(--icon); display: inline-flex; }
+.logo__icon svg { width: 100%; height: 100%; }
+
+.nav { display: flex; gap: 24px; }
+.nav a {
+  font-family: var(--font-title);
+  font-size: 0.65rem;
+  text-decoration: none;
+  padding: 10px 4px;
+  border-bottom: 3px solid transparent;
+}
+.nav a:hover { border-bottom-color: var(--signal); }
+[data-theme="kawaii"] .nav a:hover { border-bottom-color: var(--brand); }
+
+.theme-switch { display: flex; gap: 6px; }
+.theme-switch button {
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  color: var(--text);
+  border: var(--bw) solid var(--border);
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+.theme-switch button[aria-pressed="true"] {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+
+/* =====================================================================
+   5. HERO
+   ===================================================================== */
+.banner {
+  display: var(--banner-display);
+  margin: 0 0 40px;
+  border: var(--bw) solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.banner img {
+    display: block;
+    width: 100%;
+    height: clamp(280px, 35vw, 520px);
+    object-fit: cover;
+    object-position: center;
+}
+
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.kicker {
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--display-size);
+  line-height: var(--display-lh);
+  color: var(--title-color);
+  text-shadow: var(--title-shadow);
+  margin-bottom: 24px;
+  overflow-wrap: anywhere;
+}
+
+.lead {
+  font-size: 1.3rem;
+  max-width: 34ch;
+  margin-bottom: 30px;
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.avatar {
+  margin: 0 auto;
+  width: min(320px, 80%);
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: var(--bw) solid var(--border);
+  border-radius: var(--avatar-radius);
+  box-shadow: var(--shadow);
+  transform: rotate(calc(var(--tilt) * -3));
+}
+[data-theme="noir"] .avatar { box-shadow: 0 0 0 4px var(--signal); }
+[data-theme="kawaii"] .avatar { box-shadow: 8px 8px 0 var(--brand); transform: rotate(3deg); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.1); }
+
+
+/* =====================================================================
+   6. COMPONENTES
+   ===================================================================== */
+
+/* ---- Botões ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 14px 20px;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
+  border: var(--bw) solid var(--btn-border);
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.12s;
+}
+.btn:hover { transform: translate(-2px, -2px); }
+.btn:active { transform: translate(1px, 1px); }
+
+.btn--primary { background: var(--signal); color: var(--on-signal); }
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+[data-theme="kawaii"] .btn--ghost { background: #FFFFFF; color: var(--brand); box-shadow: 4px 4px 0 var(--brand); }
+
+/* ---- Chips de filtro ---- */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.chip {
+  min-height: 44px;
+  padding: 10px 16px;
+  background: var(--surface);
+  color: var(--text);
+  border: var(--bw) solid var(--border);
+  font-family: var(--font-title);
+  font-size: 0.62rem;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--signal); }
+[data-theme="kawaii"] .chip:hover { border-color: var(--brand); }
+.chip[aria-pressed="true"] {
+  background: var(--brand);
+  color: var(--on-brand);
+  border-color: var(--brand);
+}
+[data-theme="kawaii"] .chip[aria-pressed="true"] { border-color: var(--border); }
+
+.status { color: var(--muted); font-size: 1rem; min-height: 1.6em; margin-bottom: 18px; }
+
+/* ---- Cards ---- */
+.card {
+  background: var(--surface);
+  border: var(--bw) solid var(--border);
+  box-shadow: var(--shadow);
+}
+.grid > .card:nth-child(odd) { transform: rotate(var(--tilt)); }
+.grid > .card:nth-child(even) { transform: rotate(calc(var(--tilt) * -1)); }
+.grid > .card { transition: transform 0.15s; }
+.grid > .card:hover { transform: translate(-3px, -3px) rotate(0deg); }
+
+
+/* Capas dos jogos */
+.card__art {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.card__art .icon { width: 54px; height: 54px; display: inline-flex; filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.45)); }
+.card__art .icon svg { width: 100%; height: 100%; }
+
+.art-0 { background-image: linear-gradient(160deg, var(--brand), var(--surface)); }
+.art-1 { background-image: linear-gradient(160deg, var(--accent), var(--surface)); }
+.art-2 { background-image: linear-gradient(160deg, var(--signal), var(--surface)); }
+.art-3 { background-image: linear-gradient(160deg, var(--brand), var(--accent)); }
+.art-4 { background-image: linear-gradient(160deg, var(--signal), var(--brand)); }
+.art-5 { background-image: linear-gradient(160deg, var(--accent), var(--signal)); }
+
+.card__body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.card__title {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+.card__meta { color: var(--muted); font-size: 1rem; }
+
+.tag {
+  align-self: flex-start;
+  font-family: var(--font-title);
+  font-size: 0.55rem;
+  padding: 7px 9px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+[data-theme="kawaii"] .tag { border: 2px solid var(--border); }
+.tag--signal { background: var(--signal); color: var(--on-signal); }
+
+.card .btn { width: 100%; }
+
+.card--link { text-decoration: none; color: inherit; display: block; }
+.card--link .card__body { min-height: 150px; }
+
+
+/* =====================================================================
+   7. SEÇÕES
+   ===================================================================== */
+.section-title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 3.4vw, 1.9rem);
+  line-height: 1.5;
+  color: var(--section-color);
+  margin-bottom: 12px;
+}
+.section-lead { max-width: 60ch; margin-bottom: 26px; }
+
+/* Live */
+.live-box { padding: 20px; display: grid; gap: 16px; }
+.live-player {
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: var(--bw) solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  text-align: center;
+  color: #F2EEFF;
+}
+.live-player iframe { width: 100%; height: 100%; border: 0; }
+.live-player:has(iframe) { padding: 0; display: block; }
+.live-box .btn--ghost { justify-self: start; }
+
+/* Sobre */
+
+/* SOBRE A DEIA - AJUSTE DE TAMANHO */
+.about {
+    width: 100%;
+    max-width: 900px;
+    min-height: 250px;
+
+    margin: 0 auto 80px;
+    padding: 35px 32px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Título */
+.about h2 {
+    margin: 0 0 20px;
+}
+
+/* Textos */
+.about p {
+    margin: 0 0 14px;
+    line-height: 1.7;
+}
+
+/* Ajuste para celular */
+@media (max-width: 768px) {
+    .about {
+        min-height: auto;
+        padding: 28px 20px;
+        margin-bottom: 45px;
+    }
+}
+
+
+
+/* =====================================================================
+   8. RODAPÉ
+   ===================================================================== */
+.site-footer {
+  border-top: var(--bw) solid var(--border);
+  padding: 28px 0;
+  font-size: 1rem;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.footer-inner a { font-family: var(--font-title); font-size: 0.62rem; text-decoration: none; color: var(--section-color); }
+[data-theme="kawaii"] .footer-inner a { color: var(--brand); }
+
+
+/* =====================================================================
+   9. ANIMAÇÕES E ACESSIBILIDADE
+   O conteúdo só começa escondido se o JavaScript estiver ativo (classe .js).
+   ===================================================================== */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  .js .reveal { opacity: 1; transform: none; }
+}
+
+
+/* =====================================================================
+   10. DESKTOP
+   O site é só para computador: abaixo de 1200px aparece barra de rolagem
+   horizontal em vez de reorganizar o layout.
+   ===================================================================== */
+
+/* ===== RESPONSIVIDADE ===== */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        width: calc(100% - 32px);
+        max-width: 100%;
+    }
+
+    .header-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero__grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .banner img {
+        width: 100%;
+        height: auto;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .about {
+        padding: 20px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: clamp(1.2rem, 5vw, 2rem);
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 0.55rem;
+    }
+
+    .nav a {
+        font-size: 0.65rem;
+    }
+
+    .theme-switch button {
+        width: 34px;
+        height: 34px;
+    }
+
+    .btn {
+        max-width: 100%;
+    }
+}
+
+
+/* Título principal */
+.display {
+  overflow-wrap: normal;
+  font-size: clamp(1.4rem, 3.5vw, 3rem);
+  line-height: 1.5;
+}
+
+.display span {
+  display: block;
+}
+
+.display span + span {
+  margin-top: 8px;
+}
+
+
+/* =====================================
+   CADASTRO DE E-MAIL
+===================================== */
+
+.newsletter {
+    padding: 60px 0 80px;
+}
+
+.newsletter__box {
+    max-width: 900px;
+    margin: auto;
+    padding: 45px 30px;
+    text-align: center;
+    background: var(--surface);
+    border: var(--bw) solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.newsletter__box .section-title {
+    margin-bottom: 18px;
+}
+
+.newsletter__box .section-lead {
+    margin: 0 auto 25px;
+}
+
+.newsletter__form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    max-width: 650px;
+    margin: auto;
+}
+
+.newsletter__form input {
+    flex: 1;
+    min-width: 240px;
+    min-height: 52px;
+    padding: 12px 16px;
+    background: var(--bg);
+    color: var(--text);
+    border: var(--bw) solid var(--border);
+    font: inherit;
+}
+
+.newsletter__form input::placeholder {
+    color: var(--muted);
+}
+
+.newsletter__form button {
+    min-height: 52px;
+}
+
+@media (max-width: 600px) {
+    .newsletter__form {
+        flex-direction: column;
+    }
+
+    .newsletter__form input {
+        width: 100%;
+    }
+
+    .newsletter__form button {
+        width: 100%;
+    }
+}
+
+/* =========================================
+   CORREÇÃO DO BANNER - TELA INTEIRA
+========================================= */
+
+/* Remove o espaço acima do banner */
+.hero.section {
+    padding-top: 0;
+}
+
+/* Faz o banner ultrapassar o limite de 1200px */
+.hero .banner {
+    display: var(--banner-display);
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: 0;
+    margin-bottom: 40px;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Imagem ocupa toda a largura sem cortes */
+.hero .banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Faz o banner aparecer também no tema B */
+[data-theme="kawaii"] {
+    --banner-display: block;
+}

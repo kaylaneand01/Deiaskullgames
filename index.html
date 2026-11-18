@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="noir">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Déia Skullgames · Gameplays, guias e lives</title>
+  <meta name="description" content="Gameplays, guias, dicas e playlists de lives da Déia Skullgames, com todas as comunidades num lugar só.">
+  <meta name="theme-color" content="#08050F">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Permanent+Marker&family=Press+Start+2P&family=Rubik+Glitch&family=Rubik:wght@400;500;700&display=swap">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ========== CABEÇALHO ========== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#topo" aria-label="Déia Skullgames, início">
+        <span class="logo__icon" data-icon="skull" aria-hidden="true"></span>
+        <span class="logo__text">DEIA SKULLGAMES</span>
+      </a>
+
+      <nav id="menu" class="nav" aria-label="Principal">
+        <a href="#jogos">Jogos</a>
+        <a href="#lives">Lives</a>
+        <a href="#comunidade">Comunidade</a>
+        <a href="#sobre">Sobre</a>
+      </nav>
+
+      <!-- Seletor de tema: apague este bloco quando escolher uma direção
+           e deixe só o data-theme certo na tag <html> -->
+      <div class="theme-switch" role="group" aria-label="Tema visual">
+        <button type="button" data-theme-set="noir" aria-pressed="true" title="Glitch Noir">A</button>
+        <button type="button" data-theme-set="kawaii" aria-pressed="false" title="Kawaii Arcade">B</button>
+        <button type="button" data-theme-set="zine" aria-pressed="false" title="Vampy Zine">C</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ========== HERO ========== -->
+    <section id="topo" class="hero section">
+      <div class="container">
+        <figure class="banner">
+          <img src="assets/banner.png" alt="Banner do canal Déia Skullgames, com paisagem neon em roxo e verde" width="1983" height="793">
+        </figure>
+
+        <div class="hero__grid">
+          <div class="hero__text">
+            <p class="kicker">// STREAMER &amp; GAMER</p>
+            <h1 class="display">
+            <span>DEIA</span>
+         <span>SKULLGAMES</span>
+           </h1>
+
+
+            <p class="lead">Gameplays, guias e lives de vários jogos, com todas as comunidades da Déia num lugar só.</p>
+            <div class="actions">
+              <a id="live-link" class="btn btn--primary" href="#lives">▶ ASSISTIR LIVE</a>
+              <a class="btn btn--ghost" href="#lives">VER PLAYLISTS</a>
+            </div>
+          </div>
+
+          <figure class="avatar">
+            <img src="assets/avatar.jpeg" alt="Avatar chibi da Déia: cabelo castanho, óculos e fone de gato roxo e verde neon" width="800" height="800">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== AO VIVO (aparece só se houver canal da Twitch no script.js) ========== -->
+    <section id="ao-vivo" class="section section--tight" hidden>
+      <div class="container">
+        <h2 class="section-title">AO VIVO</h2>
+        <div class="live-box card">
+          <div id="live-player" class="live-player">
+            <p class="live-player__text">Clique para carregar o player da Twitch.</p>
+            <button id="live-load" class="btn btn--primary" type="button">▶ CARREGAR LIVE</button>
+          </div>
+          <a id="live-open" class="btn btn--ghost" href="#" target="_blank" rel="noopener">ABRIR NA TWITCH</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== JOGOS ========== -->
+    <section id="jogos" class="section">
+      <div class="container">
+        <p class="kicker">// MODALIDADES</p>
+        <h2 class="section-title">JOGOS QUE ELA JOGA</h2>
+        <p class="section-lead">Escolha um jogo para ver as lives dele, ou filtre por estilo.</p>
+
+        <div id="games-filters" class="chips" role="group" aria-label="Filtrar jogos por estilo"></div>
+        <p id="games-status" class="status" aria-live="polite"></p>
+        <div id="games-grid" class="grid grid--games"></div>
+      </div>
+    </section>
+
+    <!-- ========== PLAYLISTS DE LIVES ========== -->
+    <section id="lives" class="section">
+      <div class="container">
+        <p class="kicker">// ARQUIVO</p>
+        <h2 class="section-title">PLAYLISTS DE LIVES</h2>
+        <p class="section-lead">Lives anteriores organizadas por jogo, para assistir sem pressa.</p>
+
+        <div id="playlist-filters" class="chips" role="group" aria-label="Filtrar playlists por jogo"></div>
+        <p id="playlist-status" class="status" aria-live="polite"></p>
+        <div id="playlist-grid" class="grid grid--playlists"></div>
+      </div>
+    </section>
+
+    <!-- ========== COMUNIDADE ========== -->
+    <section id="comunidade" class="section">
+      <div class="container">
+        <p class="kicker">// JUNTE-SE</p>
+        <h2 class="section-title">TODAS AS COMUNIDADES</h2>
+        <p class="section-lead">Cada lugar onde a Déia está, num só site.</p>
+        <div id="community-grid" class="grid grid--community"></div>
+      </div>
+    </section>
+
+    <!-- ========== SOBRE ========== -->
+    <section id="sobre" class="section">
+      <div class="container about card">
+        <h2 class="section-title">SOBRE A DÉIA</h2>
+        <!-- Troque pelo texto real da cliente -->
+        <p>A Déia é streamer e gamer, e joga de tudo um pouco. No canal tem gameplay, guia e dica para quem quer jogar melhor, além das lives, onde o chat manda no clima.</p>
+        <p>Este espaço junta tudo: os jogos, as playlists e as comunidades, para ninguém perder nada.</p>
+      </div>
+    </section>
+
+<!-- CADASTRO DE E-MAIL -->
+<section id="cadastrar" class="section newsletter">
+  <div class="container">
+    <div class="newsletter__box card">
+
+      <p class="kicker">// ENTRE PARA A COMUNIDADE</p>
+
+      <h2 class="section-title">
+        NÃO PERCA NENHUMA LIVE!
+      </h2>
+
+      <p class="section-lead">
+        Cadastre seu e-mail para receber novidades,
+        avisos de lives e conteúdos da Déia Skullgames.
+      </p>
+
+      <form class="newsletter__form" action="#" method="post">
+        <input
+          type="email"
+          name="email"
+          placeholder="Digite seu melhor e-mail..."
+          aria-label="Seu endereço de e-mail"
+          required
+        >
+
+        <button type="submit" class="btn btn--primary">
+          QUERO PARTICIPAR!
+        </button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+  </main>
+
+  <!-- ========== RODAPÉ ========== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year">2026</span> Déia Skullgames. Todos os direitos reservados.</p>
+      <a href="#topo">VOLTAR AO TOPO ↑</a>
+    </div>
+  </footer>
+
+ <script src="javascript.js" defer></script>
+</body>
+</html>
